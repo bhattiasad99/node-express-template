@@ -23,14 +23,14 @@ export default {
   "00028":
     "Please provide a name that is longer than 3 letters and shorter than 30 letters.",
   "00029": "Please provide a valid email!",
-  "00032": "An account with this email address already exists.",
+  "00032": "An account with this username already exists.",
   "00035": "You registered successfully.",
-  "00036": "An account with this email address was not found.",
+  "00036": "An account with this username was not found.",
   "00038": "Please provide all the required fields!",
   "00039": "Please provide a valid email!",
   "00040":
     "Please provide a password that is longer than 6 letters and shorter than 20 letters.",
-  "00042": "An account with this email address was not found.",
+  "00042": "An account with this username was not found.",
   "00043": "Your email is not activated, please register firstly.",
   "00044": "Your email is not verified, please verify your email.",
   "00045": "You have entered an invalid email or password.",
@@ -72,4 +72,7 @@ export default {
   "00093": "Project Running Successfully!",
   "00094": "Success!",
   "00095": "Invalid Request!",
+  "00096": "Haji not found!",
+  "00097": "Package not found!",
+  "00098": "User not found!",
 };

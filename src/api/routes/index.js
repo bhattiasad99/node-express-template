@@ -3,7 +3,6 @@ import swaggerJsdoc from "swagger-jsdoc";
 import { serve, setup } from "swagger-ui-express";
 import { OK_SUCCESS, specs, swaggerConfig } from "../../config/index.js";
 import user from "./user.js";
-import data from "./data.js";
 import { failure, success } from "../../utils/helpers/responses.js";
 const router = Router();
 
@@ -21,6 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 router.use("/user", user);
-router.use("/data", data);
+router.use("/haji", haji);
+router.use("/package", hajj_package);
 
 export default router;

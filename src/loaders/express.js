@@ -34,6 +34,7 @@ export default (app) => {
 
   app.enable("trust proxy");
   app.use(cors());
+  app.get("/favicon.ico", (req, res) => res.status(204));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(morgan("dev"));

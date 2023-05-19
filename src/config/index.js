@@ -1,6 +1,5 @@
 export { default as swaggerConfig } from "./swagger.config.js";
-import { config } from "dotenv";
-config();
+import environmentVariables from "./env.js";
 
 //NOTE: If you are running the project in an instance, you should store these secret keys in its configuration settings.
 // This type of storing secret information is only experimental and for the purpose of local running.
@@ -13,21 +12,25 @@ const {
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
   AWS_REGION,
-  BUCKET_NAME,
-} = process.env;
+  AWS_S3_BUCKET,
+  AWS_S3_SECRET_ACCESS_KEY,
+  AWS_S3_SECRET_ACCESS_PASSWORD,
+} = environmentVariables;
 
-export const port = PORT || 3000;
+export const awsS3SecretAccessKey = AWS_S3_SECRET_ACCESS_KEY;
+export const awsS3SecretAccessPassword = AWS_S3_SECRET_ACCESS_PASSWORD;
+export const port = PORT || 5000;
 export const jwtSecretKey = JWT_SECRET_KEY;
 export const refreshTokenSecretKey = REFRESH_TOKEN_SECRET_KEY;
 export const dbUri = DB_URI;
 export const awsAccessKey = AWS_ACCESS_KEY_ID;
 export const awsSecretAccessKey = AWS_SECRET_ACCESS_KEY;
 export const awsRegion = AWS_REGION;
-export const bucketName = BUCKET_NAME;
+export const bucketName = AWS_S3_BUCKET;
 export const prefix = "/api";
 export const specs = "/docs";
 
-export const ENABLE_MONGODB_CONNECTION = false;
+export const ENABLE_MONGODB_CONNECTION = true;
 
 // STATUS CODES
 export const CONFLICT_ERROR = 409;
@@ -40,7 +43,7 @@ export const OK_SUCCESS = 200;
 
 // TOKEN REFRESH
 // ~~~ Change access token back to 1h
-export const ACCESS_TOKEN_EXPIRATION = "24h";
+export const ACCESS_TOKEN_EXPIRATION = "4h";
 export const REFRESH_TOKEN_EXPIRATION = "1y";
 
 // MODELS

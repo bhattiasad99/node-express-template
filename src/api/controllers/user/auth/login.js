@@ -15,26 +15,24 @@ import {
   decodeToken,
 } from "../../../../utils/helpers/jwt-token-helper.js";
 import { failure, success } from "../../../../utils/helpers/responses.js";
+import { INPUT_ERROR } from "../../../../config/index.js";
 
 export default async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const { error } = validateLogin({ email, password });
+    const { username, password } = req.body;
+    const { error } = validateLogin({ username, password });
     if (error) {
       let code = "00038";
-      if (error.details[0].message.includes("email")) code = "00039";
-      else if (error.details[0].message.includes("password")) code = "00040";
-      return failure(req, res, 400, code, error.details[0].message);
+      return failure(req, res, INPUT_ERROR, code, error.details[0].message);
     }
-    const user = await User.findOne({ email: email, isActivated: true })
-      .select("+password")
-      .catch((err) => {
-        return failure(req, res, 500, "00041", err.message);
-      });
+    const user = await User.findOne({ username: username }).select("+password");
+    // .catch((err) => {
+    //   return failure(req, res, 500, "00041", err.message);
+    // });
 
     if (!user) return failure(req, res, 404, "00042");
 
-    if (!user.isActivated) return failure(req, res, 400, "00043");
+    // if (!user.isActivated) return failure(req, res, 400, "00043");
 
     // if (!user.isVerified) return res.status(400).json(errorHelper("00044", req));
 
@@ -45,7 +43,7 @@ export default async (req, res) => {
     const accessToken = createAccessToken(user._id, {
       ...removePasswordFromUser(userDetails),
     });
-    const refreshToken = signRefreshToken(user._id);
+    // const refreshToken = signRefreshToken(user._id);
     //NOTE: 604800000 ms is equal to 7 days. So, the expiry date of the token is 7 days after.
     // await Token.updateOne(
     //   { userId: user._id },
@@ -64,7 +62,7 @@ export default async (req, res) => {
     // logger("00047", user._id, getText("en", "00047"), "Info", req);
     return success(req, res, 200, "00047", undefined, undefined, {
       accessToken,
-      refreshToken,
+      // refreshToken,
     });
   } catch (err) {
     return failure(req, res, 500, "00008", err.message);
